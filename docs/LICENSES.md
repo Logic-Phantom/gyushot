@@ -15,7 +15,8 @@
 | 에셋 | 출처 | 라이선스 |
 |---|---|---|
 | 로고·아이콘(`public/brand/logo.svg`, `components/Icon.tsx`) | 자체 제작(시안 모양 참고) | 프로젝트 소유 |
+| 콘솔 앱 로고 `assets/brand/app-logo-600.png`, `app-logo-dark-600.png` | `scripts/build-app-icons.py`로 생성 | 프로젝트 소유 |
 | 디자인 시안 `assets/design/ui-mockup.webp` | 사용자 제공 | 사용자 소유 |
-| 예시 사진 `assets/design/sample-photos-sheet.webp` → `app/public/samples/*.jpg` | 사용자 제공 시트를 분할 | 사용자 제공 — **출시 전 원본 이미지의 상업적 사용 권리 확인 필요**(생성 이미지로 보이며 실제 인물 여부·권리 확인 필요) |
+| 예시 사진 `assets/design/sample-photos-sheet.webp` → `app/public/samples/*.jpg` | 사용자가 **ChatGPT로 생성한 AI 이미지**(2026-11-14 사용자 확인) 시트를 분할 | 실존 인물 아님. OpenAI 이용약관상 생성물 권리는 사용자에게 귀속 — 출시 전 최신 약관 재확인 권장. 앱에는 'AI로 만든 체험용 이미지' 문구 표시 |
 | 테스트 fixture | `scripts/make-test-fixtures.py`로 생성한 단색 합성 이미지 | 프로젝트 소유 |
 | 폰트 | 시스템 폰트만 사용 | — |

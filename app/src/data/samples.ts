@@ -1,5 +1,6 @@
 // 예시 사진: 디자인 시트(assets/design/sample-photos-sheet.webp)를 scripts/split-sample-photos.py로 나눈 파일.
-// 앱에 함께 포함되는 정적 파일이라 네트워크 외부 전송이 없다. 실제 인물 사진이 아닌 디자인용 예시 이미지다.
+// 앱에 함께 포함되는 정적 파일이라 네트워크 외부 전송이 없다.
+// 모두 사용자가 ChatGPT로 생성한 AI 이미지다(실존 인물 아님, D-027). 기관 제출용 사진이 아니라 체험용임을 화면에 표시한다.
 export interface Sample {
   id: string;
   file: string;

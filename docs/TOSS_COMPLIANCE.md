@@ -22,7 +22,7 @@
 | Safe Area | 하단 탭바·버튼에 `env(safe-area-inset-bottom)` | 구현(실기기 미확인) |
 | 360px 가로 스크롤 없음 | 8개 화면 `scrollWidth == 360` 확인 | 브라우저 확인 |
 | 광고·로그인·결제 | 사용 안 함 | 해당 없음 |
-| 국문 앱 이름 = 콘솔 등록명 | `제출맞춤`(콘솔 미등록), appName `gyushot` | 사용자 확인 필요 |
+| 국문 앱 이름 = 콘솔 등록명 | 콘솔 등록 `제출맞춤`, appName `gyushot`(D-026) | 구현 |
 | 공식 기관 로고·휘장 미사용 | 아이콘·로고 자체 제작 | 구현 |
 | devtools 모의 SDK 테스트(3.x 테스트 환경) | `@apps-in-toss/devtools` Vite 플러그인, dev에서만 활성 | 구현 · devtools 확인 |
 | `brand` 설정 삭제(3.x) | 삭제(D-023) | 구현 |

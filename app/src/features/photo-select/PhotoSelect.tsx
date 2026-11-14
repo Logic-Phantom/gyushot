@@ -142,6 +142,7 @@ export function PhotoSelect() {
           </button>
         ))}
       </div>
+      <p className="fineprint">예시 사진은 AI로 만든 체험용 이미지예요. 실제 제출에는 직접 촬영한 사진을 쓰세요.</p>
       <p className="fineprint">JPG·PNG·WebP를 지원해요. HEIC는 기기 브라우저가 열 수 있을 때만 처리돼요.</p>
     </Screen>
   );
