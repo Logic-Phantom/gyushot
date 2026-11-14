@@ -6,6 +6,17 @@
 
 PDF·OCR·배경 제거·얼굴 보정·AI 합성은 하지 않습니다. 파일 조건 검사는 기관의 사진 심사 통과를 보장하지 않습니다.
 
+## 현재 상태 (2026-11-14 기준)
+
+| 항목 | 상태 |
+|---|---|
+| 앱인토스 콘솔 | 등록 완료 — **제출맞춤 / `intoss://gyushot`**, 비게임, 사진·영상 > 사진·영상 편집 (워크스페이스 41181) |
+| 출시 버전 | **20261114-2 검토 중** (SDK 3.10.0, commit `3b0f05a` 빌드) — 결과는 영업일 3~7일 내 이메일 |
+| 실제 출시 | 승인 후 콘솔 → 제출맞춤 → 앱 출시에서 진행 (아직 안 됨) |
+| 토스앱 QR 테스트 | 사용자 확인 '문제없음' (기기·OS별 세부 결과 미기록) |
+| 자동 검사 | typecheck 통과 · 테스트 66/66 · 프리셋 8개 검증 · build·`.ait` 생성 |
+| 저장소 | https://github.com/Logic-Phantom/gyushot (`main`) |
+
 ## 화면
 
 시안(`assets/design/ui-mockup.webp`)의 8개 화면을 재현했습니다.
@@ -40,7 +51,7 @@ PDF·OCR·배경 제거·얼굴 보정·AI 합성은 하지 않습니다. 파일
 
 ## 상태표 (2026-11-14)
 
-| 기능 | 구현 | 자동 테스트 | 브라우저 확인 | 샌드박스 | 토스 iOS | 토스 Android |
+| 기능 | 구현 | 자동 테스트 | 브라우저 확인 | 토스앱 QR | 토스 iOS | 토스 Android |
 |---|---|---|---|---|---|---|
 | 규격 계산·크롭·검사(image-core) | ✅ | ✅ 57개 | ✅ | — | — | — |
 | 프리셋 카탈로그·검증 | ✅ | ✅ | ✅ | — | — | — |
@@ -58,7 +69,7 @@ PDF·OCR·배경 제거·얼굴 보정·AI 합성은 하지 않습니다. 파일
 
 ✅ 확인됨 · ⬜ 아직 확인 안 함 · — 해당 없음
 
-'샌드박스' 열: SDK 3.x는 샌드박스 앱이 없어 **콘솔 업로드 후 QR 테스트**를 뜻합니다. 로컬 모의 SDK 확인은 devtools 행에 적습니다. 절차: [docs/SANDBOX_TEST.md](docs/SANDBOX_TEST.md)
+'토스앱 QR' 열: SDK 3.x는 샌드박스 앱이 없어 **콘솔 업로드 후 QR 테스트**로 확인합니다. 사용자가 20261114-2로 앨범 선택→변환→저장까지 '문제없음'을 확인했지만 항목·기기별로는 기록되지 않아 개별 행은 ⬜로 둡니다. 로컬 모의 SDK 확인은 devtools 행에 적습니다. 절차: [docs/SANDBOX_TEST.md](docs/SANDBOX_TEST.md)
 
 ## 기술 스택과 구조
 
@@ -68,9 +79,10 @@ Vite 8 · React 19 · TypeScript 7 · react-router 7(해시) · Vitest 5 · `@ap
 ```text
 app/                  앱인토스 WebView 앱 (화면·플랫폼 어댑터·저장소)
 packages/image-core/  규격 계산·크롭·압축 탐색·메타데이터·검사 (DOM/SDK 비의존 + browser 어댑터)
-scripts/              프리셋 검증, 예시 사진 분할, fixture 생성, 라이선스 수집, 번들 크기
-assets/design/        시안·예시 사진 원본
-docs/                 결정·아키텍처·출처·파이프라인·정책·개인정보·라이선스·테스트·출시 체크리스트
+scripts/              프리셋 검증, 예시 사진 분할, fixture·앱 로고 생성, 라이선스 수집, 번들 크기
+assets/design/        시안·예시 사진 원본(예시 사진은 ChatGPT 생성 AI 이미지)
+assets/brand/         콘솔 등록용 앱 로고 600×600(라이트·다크)
+docs/                 결정·아키텍처·출처·파이프라인·정책·개인정보·라이선스·테스트·토스 테스트·출시 체크리스트
 ```
 
 자세한 구조: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · 처리 과정: [docs/IMAGE_PIPELINE.md](docs/IMAGE_PIPELINE.md)
@@ -87,6 +99,8 @@ npm install
 npm run dev
 ```
 
+devtools 모의 SDK(오른쪽 아래 AIT 패널)가 함께 뜹니다. 순수 브라우저 경로는 `AIT_DEVTOOLS=off npm run dev`.
+
 ```bash
 npm run check
 ```
@@ -101,29 +115,29 @@ npm run build:ait
 
 ## 사용자가 직접 할 일
 
-1. ~~콘솔 앱 등록~~ 완료(2026-11-14). 검토 요청 전 콘솔의 '앱을 등록하기 전에 확인해 주세요' 5개 항목은 직접 확인·체크
-2. KIPRIS(제9류·제42류)·스토어 이름 충돌 확인
-3. 토스 앱 샌드박스 QR 테스트(앨범 선택·권한 거부·변환·저장)
-4. iOS·Android 실기기에서 저장 위치·파일 이름 확인
-5. 예시 사진(`assets/design/sample-photos-sheet.webp`)의 상업적 사용 권리 확인
-6. 콘솔 업로드·출시 요청은 직접 승인·실행
+1. **검토 결과 메일 확인** → 승인되면 콘솔에서 20261114-2 출시(요청하면 Claude가 크롬으로 대신 진행), 반려되면 사유 전달
+2. KIPRIS(제9류·제42류)·스토어 이름 충돌 확인 (콘솔에 '비슷한 이름의 앱 1개' 안내가 있었음)
+3. QR 테스트 결과를 기기·OS별로 기록(저장 위치·파일 이름·권한 거부·사진 방향) — [docs/SANDBOX_TEST.md](docs/SANDBOX_TEST.md) 점검표
+4. 예시 사진(ChatGPT 생성)의 생성물 이용 약관 최신 내용 재확인
 
 ## 변경 내역
 
-### 0.1.2 — 2026-11-14 (검토 요청)
+앱 코드 버전은 `0.1.0`(`app/src/brand.ts`), 콘솔 번들 버전은 `20261114-N`입니다. 최신 단계가 위에 있습니다.
+
+### ⑤ 검토 요청 — 2026-11-14 (콘솔 버전 20261114-2)
 
 - 번들 **20261114-2** 업로드(AI 예시 이미지 안내 포함) → 사용자 토스앱 QR 테스트 '문제없음' 확인
 - 콘솔 확인 5개 항목 동의(사용자 승인) 후 **검토 요청** — 상태 '검토 중', 결과는 영업일 3~7일 내 이메일
 - 부제를 콘솔 특수문자 규칙에 맞게 '사진 규격 한 번에 맞추기'로 수정
 
-### 0.1.2 — 2026-11-14 (앱인토스 콘솔 등록)
+### ④ 앱인토스 콘솔 등록 — 2026-11-14 (콘솔 버전 20261114-1)
 
 - 콘솔에 앱 등록: **제출맞춤 / `intoss://gyushot`**, 비게임, 사진·영상 > 사진·영상 편집, 영어 이름 Submit Fit, 부제·상세 설명·키워드·주요 기능·고객문의 이메일 입력, 임시저장
 - 앱 로고 600×600(라이트·다크) 생성 스크립트 `scripts/build-app-icons.py` → `assets/brand/`
 - 번들 **20261114-1** 업로드 → 토스앱 테스트 QR 생성(검토 요청은 하지 않음)
 - 예시 사진이 ChatGPT 생성 AI 이미지임을 문서·사진 선택 화면에 표시
 
-### 0.1.1 — 2026-11-14 (토스 테스트 준비)
+### ③ 토스 테스트 준비 — 2026-11-14
 
 - 공식 문서 확인: **SDK 3.x는 샌드박스 앱이 없고**, `@apps-in-toss/devtools` 모의 SDK(로컬) + 콘솔 업로드 QR(실제 토스 앱)로 테스트
 - `@apps-in-toss/devtools` 추가(개발 서버 전용). devtools가 켜지면 앱이 SDK 경로를 타도록 실행 환경 판별을 `toss / devtools-mock / browser`로 나눔. `AIT_DEVTOOLS=off`로 순수 브라우저 경로 확인
@@ -132,7 +146,7 @@ npm run build:ait
 - 접두 없는 base64 앨범 결과의 형식을 바이트로 판별(모의 SDK가 PNG를 반환해 발견)
 - [docs/SANDBOX_TEST.md](docs/SANDBOX_TEST.md): 업로드 명령, QR 점검표 17항목(iOS·Android)
 
-### 0.1.0 — 2026-11-14 (최초)
+### ② 최초 구현 — 2026-11-14
 
 - 저장소 구조 설계: npm workspaces(`packages/image-core`, `app`), CI(typecheck·test·presets·build)
 - image-core: cm/mm↔px, 프리셋 해석, cover/contain 크롭·회전 행렬, 품질 이분 탐색, 형식 판별·헤더 크기·EXIF 방향·JFIF/pHYs DPI 읽기·쓰기, 출력 검사, 카탈로그·사용자 프리셋 스키마(손상 복구·v0→v1)
@@ -140,9 +154,9 @@ npm run build:ait
 - 시안 8개 화면 재현 + 직접 설정·최근 작업·더보기 화면, 자체 제작 SVG 아이콘·로고
 - 예시 사진 시트를 16장으로 자동 분할(`scripts/split-sample-photos.py`)해 체험용으로 포함
 - 토스 연동: `Device.getAlbumItems`/`getPhotos`, `File.saveBase64`, `Storage` 어댑터(브라우저 대체 경로 포함), `photos: read` 권한, 토스 내비게이션 바
-- 문서: DECISIONS(D-001~D-021), ARCHITECTURE, PRESET_SOURCES, IMAGE_PIPELINE, TOSS_COMPLIANCE, PRIVACY, LICENSES, TESTING, BRAND_REVIEW, COMPETITIVE_REVIEW, RELEASE_CHECKLIST, CLAUDE.md
+- 문서: DECISIONS(D-001~D-021, 이후 D-028까지 추가), ARCHITECTURE, PRESET_SOURCES, IMAGE_PIPELINE, TOSS_COMPLIANCE, PRIVACY, LICENSES, TESTING, BRAND_REVIEW, COMPETITIVE_REVIEW, RELEASE_CHECKLIST, CLAUDE.md
 
-### 슈퍼프롬프트 대비 바꾼 점
+### ① 슈퍼프롬프트 검토 후 바꾼 점
 
 - 앱 이름을 `규샷` → **제출맞춤**으로(사용자 지정). 저장소·appName은 `gyushot` 유지
 - 운전면허증 **온라인** 규격 추가(공식 페이지에서 확인됨)
@@ -153,24 +167,25 @@ npm run build:ait
 
 ## 다음 할 일
 
-1. **검토 결과 대기** — 승인 메일이 오면 콘솔 → 제출맞춤 → 앱 출시에서 20261114-2 **출시**. 반려되면 사유를 알려주시면 수정해 다시 요청
-2. **QR 점검표 세부 기록** — iOS·Android 각각 저장 위치·방향·권한 거부 결과를 [SANDBOX_TEST.md](docs/SANDBOX_TEST.md)에 기록 특히 앨범 반환 형식·EXIF, `File.saveBase64` 저장 위치·권한(`photos: write` 필요 여부)
+1. **검토 결과 대응** — 승인 시 출시, 반려 시 사유 반영 후 새 번들(`npm run build:ait`) 업로드·재요청
+2. **QR 점검표 세부 기록** — iOS·Android별 앨범 반환 형식·EXIF 방향, `File.saveBase64` 저장 위치, `photos: write` 필요 여부, 권한 거부 흐름
 3. **devtools 남은 시나리오** — 권한 거부, 모의 저장
-4. **실기기 확인** — iOS/Android 핀치 제스처와 WebView 충돌, Safe Area, 대용량 사진 메모리·속도 → 입력 상한(D-009) 조정
-5. **브라우저 E2E 자동화** — Playwright로 홈→변환→결과 흐름, 실제 file input·다운로드 포함
-6. **EXIF Orientation 실사진 회귀 테스트** — 방향 1~8 실제 렌더 결과 비교
+4. **실기기 성능** — 핀치 제스처와 WebView 충돌, Safe Area, 대용량 사진 메모리·속도 → 입력 상한(D-009) 조정
+5. **브라우저 E2E 자동화** — Playwright로 홈→변환→결과, 실제 file input·다운로드 포함
+6. **EXIF Orientation 실사진 회귀 테스트** — 방향 1~8 렌더 결과 비교
 7. **큐넷·주민등록증 공식 규격 확인** 후 활성화/공식 라벨 전환
-8. **앱 아이콘(600×600)·스토어 소개·스크린샷** 제작
+8. **스토어 스크린샷 직접 제작** — 지금은 콘솔 'AI 자동 채우기'에 맡김
 9. HEIC 지원 여부 결정(토스 앨범 API가 JPEG로 변환해 주는지 확인 후)
-10. 접근성 점검(스크린 리더 라벨, 대비)과 홈 텍스트 로고의 체크리스트 적합성 검토
+10. 접근성 점검(스크린 리더 라벨·대비), 홈 텍스트 로고의 체크리스트 적합성, 출시 후 '진단 정보' 메뉴 노출 여부 검토(D-024)
 
 ## Work Log
 
 | 날짜 | 작업 | 결과 |
 |---|---|---|
-| 2026-11-14 | 앱인토스 문서(llms.txt·앨범·파일 저장·Storage)·SDK 3.10.0 타입 확인, 외교부·도로교통공단 규격 페이지 확인 | 문서 반영 |
-| 2026-11-14 | 프로젝트 구조·image-core·앱 화면·문서 작성 | typecheck 통과, 테스트 66/66 통과, presets 8개 통과, build·`.ait` 생성 |
-| 2026-11-14 | 번들 20261114-2 업로드, 부제 수정, 확인 항목 동의 후 검토 요청 | 상태 '검토 중' 확인 |
-| 2026-11-14 | 크롬으로 앱인토스 콘솔 등록, 로고·소개·키워드 입력, 번들 20261114-1 업로드 | QR 생성, 임시저장 확인(새로고침 후 유지), 검토 요청 안 함 |
-| 2026-11-14 | 토스 테스트 준비: 3.x 테스트 문서 확인, devtools 연동, 진단 정보, brand 삭제 | devtools에서 앨범→변환 확인, 테스트 66/66, `.ait` 생성, dist에 devtools 없음 |
-| 2026-11-14 | 내장 브라우저(375/360px)에서 전체 흐름 확인 | 결과 파일 413×531·20KB·JPG·300dpi 재확인, 가로 스크롤 없음, 외부 요청 없음 |
+| 2026-11-14 | 앱인토스 문서(llms.txt·앨범·파일 저장·Storage)·SDK 3.10.0 타입, 외교부·도로교통공단 규격 페이지 확인 | 문서 반영 |
+| 2026-11-14 | 프로젝트 구조·image-core·시안 8개 화면·예시 사진 분할·문서 작성 | typecheck 통과, 테스트 66/66, presets 8개, build·`.ait` 생성 (commit `561ded4`) |
+| 2026-11-14 | 내장 브라우저(375/360px)에서 전체 흐름 확인 | 결과 413×531·20KB·JPG·300dpi 재확인, 가로 스크롤 없음, 외부 요청 없음 |
+| 2026-11-14 | 토스 테스트 준비: 3.x 테스트 문서 확인, devtools 연동, 진단 정보, brand 삭제 | devtools에서 앨범→변환 확인, dist에 devtools 없음 (commit `79b01f0`) |
+| 2026-11-14 | 크롬으로 콘솔 앱 등록, 로고·소개·키워드·이메일 입력, 번들 20261114-1 업로드, AI 예시 이미지 표시 | QR 생성, 임시저장 확인 (commit `3b0f05a`) |
+| 2026-11-14 | 번들 20261114-2 업로드, 사용자 QR 테스트 '문제없음', 부제 수정, 확인 항목 동의 후 검토 요청 | 상태 '검토 중' (commit `a0517bd`) |
+| 2026-11-14 | README 최종 정리(현재 상태·할 일·변경 내역) | 이 커밋 |
