@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- 제출맞춤 로고: 라임 프레임 모서리 + 카메라 (자체 제작) -->
+  <g stroke="#8BD13B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 34V18a8 8 0 0 1 8-8h16"/>
+    <path d="M86 10h16a8 8 0 0 1 8 8v16"/>
+    <path d="M110 86v16a8 8 0 0 1-8 8H86"/>
+    <path d="M34 110H18a8 8 0 0 1-8-8V86"/>
+  </g>
+  <path d="M30 44a8 8 0 0 1 8-8h9l5-7h16l5 7h9a8 8 0 0 1 8 8v34a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8z" fill="#111"/>
+  <circle cx="60" cy="61" r="15" fill="#fff"/>
+  <circle cx="60" cy="61" r="9" fill="#111"/>
+</svg>

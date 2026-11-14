@@ -1,0 +1,98 @@
+[
+  {
+    "id": "id-woman-sweater",
+    "file": "samples/id-woman-sweater.jpg",
+    "width": 287,
+    "height": 350
+  },
+  {
+    "id": "id-man-black",
+    "file": "samples/id-man-black.jpg",
+    "width": 271,
+    "height": 350
+  },
+  {
+    "id": "id-woman-shirt",
+    "file": "samples/id-woman-shirt.jpg",
+    "width": 255,
+    "height": 350
+  },
+  {
+    "id": "id-man-suit",
+    "file": "samples/id-man-suit.jpg",
+    "width": 277,
+    "height": 350
+  },
+  {
+    "id": "portrait-woman-river",
+    "file": "samples/portrait-woman-river.jpg",
+    "width": 281,
+    "height": 309
+  },
+  {
+    "id": "portrait-man-park",
+    "file": "samples/portrait-man-park.jpg",
+    "width": 267,
+    "height": 309
+  },
+  {
+    "id": "portrait-woman-room",
+    "file": "samples/portrait-woman-room.jpg",
+    "width": 268,
+    "height": 309
+  },
+  {
+    "id": "portrait-man-books",
+    "file": "samples/portrait-man-books.jpg",
+    "width": 272,
+    "height": 309
+  },
+  {
+    "id": "scene-sunset-tower",
+    "file": "samples/scene-sunset-tower.jpg",
+    "width": 279,
+    "height": 252
+  },
+  {
+    "id": "scene-beach",
+    "file": "samples/scene-beach.jpg",
+    "width": 269,
+    "height": 252
+  },
+  {
+    "id": "scene-cherry-blossom",
+    "file": "samples/scene-cherry-blossom.jpg",
+    "width": 273,
+    "height": 252
+  },
+  {
+    "id": "scene-night-city",
+    "file": "samples/scene-night-city.jpg",
+    "width": 260,
+    "height": 252
+  },
+  {
+    "id": "object-dog",
+    "file": "samples/object-dog.jpg",
+    "width": 280,
+    "height": 251
+  },
+  {
+    "id": "object-latte",
+    "file": "samples/object-latte.jpg",
+    "width": 270,
+    "height": 251
+  },
+  {
+    "id": "object-plant",
+    "file": "samples/object-plant.jpg",
+    "width": 275,
+    "height": 251
+  },
+  {
+    "id": "object-notebook",
+    "file": "samples/object-notebook.jpg",
+    "width": 255,
+    "height": 251
+  }
+]

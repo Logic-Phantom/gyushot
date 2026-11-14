@@ -1,0 +1,18 @@
+{
+  "name": "gyushot",
+  "private": true,
+  "workspaces": ["packages/image-core", "app"],
+  "scripts": {
+    "dev": "npm run dev --workspace app",
+    "build": "npm run build --workspace app",
+    "build:ait": "npm run build:ait --workspace app",
+    "test": "npm run test --workspace packages/image-core && npm run test --workspace app",
+    "typecheck": "npm run typecheck --workspace packages/image-core && npm run typecheck --workspace app",
+    "presets:validate": "node scripts/validate-presets.mjs",
+    "samples:split": "python scripts/split-sample-photos.py",
+    "licenses": "node scripts/generate-oss-licenses.mjs",
+    "bundle-size": "node scripts/bundle-size.mjs",
+    "check": "npm run typecheck && npm test && npm run presets:validate && npm run build"
+  },
+  "engines": { "node": ">=24" }
+}
