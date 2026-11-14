@@ -1,5 +1,6 @@
 // 더보기 / 설정: 파일 처리 정책, 공식 규격 출처, 오픈소스 라이선스, 초기화.
 import { useState } from 'react';
+import { collectDiagnostics, recentEvents, type DiagInfo } from '../../platform/diagnostics';
 import { Icon } from '../../components/Icon';
 import { DISCLAIMER, Header, Screen, useToast } from '../../components/ui';
 import { BRAND } from '../../brand';
@@ -17,6 +18,7 @@ export function More() {
   const { resetAll, customs } = useApp();
   const [open, setOpen] = useState<string | null>(null);
   const [confirm, setConfirm] = useState(false);
+  const [diag, setDiag] = useState<DiagInfo | null>(null);
   const oss = ossLicenses as Oss;
   const officials = CATALOG.presets.filter((p) => p.source);
 
@@ -67,6 +69,45 @@ export function More() {
           ))}
         </ul>
       </Section>
+
+      <section className="more-section">
+        <button
+          type="button"
+          className="more-section__head"
+          aria-expanded={open === 'diag'}
+          onClick={() => {
+            const next = open === 'diag' ? null : 'diag';
+            setOpen(next);
+            if (next) collectDiagnostics().then(setDiag, () => setDiag(null));
+          }}
+        >
+          진단 정보(테스트용)
+          <Icon name="chevron-right" size={18} style={{ transform: open === 'diag' ? 'rotate(90deg)' : undefined }} />
+        </button>
+        {open === 'diag' ? (
+          <div className="more-section__body">
+            {diag ? (
+              <dl className="kv kv--small">
+                <div><dt>실행 환경</dt><dd>{diag.runtime === 'toss' ? '토스 앱' : diag.runtime === 'devtools-mock' ? 'devtools 모의 SDK' : '브라우저'}</dd></div>
+                {diag.environment ? <div><dt>운영 환경</dt><dd>{diag.environment}</dd></div> : null}
+                {diag.deploymentId ? <div><dt>deploymentId</dt><dd className="mono">{diag.deploymentId}</dd></div> : null}
+                {diag.tossAppVersion ? <div><dt>토스 앱 버전</dt><dd>{diag.tossAppVersion}</dd></div> : null}
+                {diag.platformOS ? <div><dt>OS</dt><dd>{diag.platformOS}</dd></div> : null}
+                {diag.albumItemsSupported != null ? <div><dt>getAlbumItems</dt><dd>{diag.albumItemsSupported ? '지원' : '미지원(getPhotos 사용)'}</dd></div> : null}
+                {diag.saveBase64Supported != null ? <div><dt>saveBase64</dt><dd>{diag.saveBase64Supported ? '지원' : '미지원'}</dd></div> : null}
+                <div><dt>인코딩</dt><dd>JPG {diag.encode.jpeg ? 'O' : 'X'} · PNG {diag.encode.png ? 'O' : 'X'} · WebP {diag.encode.webp ? 'O' : 'X'}</dd></div>
+                <div><dt>화면</dt><dd>{diag.viewport} @{diag.dpr}x</dd></div>
+              </dl>
+            ) : <p className="fineprint">확인 중…</p>}
+            <ul className="diag-log">
+              {recentEvents().map((e, i) => (
+                <li key={i}><span>{e.at}</span> <b>{e.kind}</b> {e.detail}</li>
+              ))}
+              {recentEvents().length === 0 ? <li>아직 기록이 없어요. 사진을 고르고 변환·저장하면 결과만(사진 내용 제외) 남아요.</li> : null}
+            </ul>
+          </div>
+        ) : null}
+      </section>
 
       <section className="more-section">
         <div className="more-section__head more-section__head--static">

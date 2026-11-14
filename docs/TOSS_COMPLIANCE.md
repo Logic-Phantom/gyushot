@@ -1,7 +1,7 @@
 # 앱인토스 비게임 체크리스트 대응
 
 기준: https://developers-apps-in-toss.toss.im/checklist/app-nongame.md, SDK 문서(앨범·파일 저장·Storage) — 2026-11-14 확인. SDK `@apps-in-toss/web-framework` 3.10.0 타입 정의 확인.
-상태: `구현` / `샌드박스 확인` / `토스 iOS 확인` / `토스 Android 확인` / `해당 없음` / `검토 필요`. **샌드박스·실기기 확인은 아직 하나도 없다.**
+상태: `구현` / `샌드박스 확인` / `토스 iOS 확인` / `토스 Android 확인` / `해당 없음` / `검토 필요`. **실제 토스 앱(QR) 확인은 아직 하나도 없다.** SDK 3.x는 샌드박스 앱을 제공하지 않아 devtools 모의 SDK로 대신 확인했다([SANDBOX_TEST.md](SANDBOX_TEST.md)).
 
 | 항목 | 대응 | 상태 |
 |---|---|---|
@@ -24,4 +24,6 @@
 | 광고·로그인·결제 | 사용 안 함 | 해당 없음 |
 | 국문 앱 이름 = 콘솔 등록명 | `제출맞춤`(콘솔 미등록), appName `gyushot` | 사용자 확인 필요 |
 | 공식 기관 로고·휘장 미사용 | 아이콘·로고 자체 제작 | 구현 |
+| devtools 모의 SDK 테스트(3.x 테스트 환경) | `@apps-in-toss/devtools` Vite 플러그인, dev에서만 활성 | 구현 · devtools 확인 |
+| `brand` 설정 삭제(3.x) | 삭제(D-023) | 구현 |
 | `.ait` 생성 | `npm run build:ait` → `app/gyushot.ait`(약 445KB) | 구현 |

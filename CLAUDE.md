@@ -19,7 +19,7 @@
 ## 명령
 
 ```bash
-npm run dev               # http://localhost:5173 (브라우저 미리보기, file input 대체 경로)
+npm run dev               # http://localhost:5173 + devtools 모의 SDK(AIT 패널). AIT_DEVTOOLS=off면 순수 브라우저 경로
 npm run check             # typecheck + test + presets:validate + build
 npm run build:ait         # app/gyushot.ait
 python scripts/split-sample-photos.py   # 예시 사진 다시 분할

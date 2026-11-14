@@ -4,6 +4,7 @@ import { INITIAL_EDIT, type CropMode, type CustomPreset, type EditState, type In
 import { decodeSource, type DecodedSource, type DecodeError } from '@gyushot/image-core/browser';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { findPreset, specOf, type AppPreset } from '../data/catalog';
+import { logEvent } from '../platform/diagnostics';
 import { createRepository, type RecentEntry } from '../storage/preset-repository';
 
 export interface SourcePhoto {
@@ -131,7 +132,11 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   const loadPhoto = useCallback<AppStateValue['loadPhoto']>(async (blob, name, via, applyOrientation = true) => {
     const r = await decodeSource(blob, { applyOrientation });
-    if (!r.ok) return r;
+    if (!r.ok) {
+      logEvent('decode', `실패 ${r.error} · ${blob.type || '형식 없음'} · ${blob.size} bytes`);
+      return r;
+    }
+    logEvent('decode', `${r.source.format} ${r.source.size.width}×${r.source.size.height} · ${blob.size} bytes · EXIF 방향 ${r.source.exifOrientation} · ${via}`);
     const url = URL.createObjectURL(blob);
     setSession((s) => {
       releaseSource(s.source);

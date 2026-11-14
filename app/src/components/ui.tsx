@@ -2,7 +2,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ICON_TONE, type PresetLabel } from '../data/catalog';
-import { isInToss } from '../platform/toss';
+import { isRealToss } from '../platform/toss';
 import { Icon, type IconName } from './Icon';
 
 /** 화면 상단. 토스 안에서는 토스 내비게이션 바가 뒤로가기를 그리므로 앱 자체 뒤로가기를 숨긴다. */
@@ -14,7 +14,7 @@ export function Header({ title, back = true, right, onBack, large }: {
   large?: boolean;
 }) {
   const navigate = useNavigate();
-  const showBack = back && !isInToss();
+  const showBack = back && !isRealToss();
   return (
     <header className={`header${large ? ' header--large' : ''}`}>
       <div className="header__side">

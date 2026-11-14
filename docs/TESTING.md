@@ -41,10 +41,20 @@ Fixture는 `scripts/make-test-fixtures.py`로 만든 합성 이미지(개인정�
 | 콘솔 오류 | 없음 |
 | 네트워크 | localhost 요청만 |
 
+## devtools 모의 SDK 확인 (2026-11-14) — 상세: [SANDBOX_TEST.md](SANDBOX_TEST.md)
+
+| 흐름 | 결과 |
+|---|---|
+| 진단 정보(모의 SDK 인식, getAlbumItems·saveBase64 지원 표시) | 통과 |
+| `Device.getAlbumItems`(base64) → 디코딩 → 변환 413×531 JPG 300dpi | 통과 |
+| 진단 로그에 사진 내용 없이 결과만 기록 | 통과 |
+| 프로덕션 dist에 devtools 코드 없음 | 통과 |
+| 모의 `saveBase64`, 권한 거부 시나리오 | 미실행 |
+
 ## 실행하지 않은 것
 
 - **자동 E2E(Playwright)**: 미도입. 위 브라우저 흐름은 수동(도구) 확인이다.
 - **브라우저 '저장하기' 다운로드 클릭**: 미실행(다운로드 동작 자체는 코드만 작성).
 - **실제 파일 선택(<input type=file>)·HEIC 입력**: 미실행. 예시 사진 경로로만 확인.
 - **EXIF Orientation 실제 사진의 브라우저 디코딩**: 바이트 판독만 단위 테스트, 렌더 결과 미확인.
-- **샌드박스**: 미확인. **토스 iOS / Android**: 미확인(앨범 선택, 권한 거부, 저장 위치, 한글 파일명, 대용량, 제스처 충돌, Safe Area).
+- **샌드박스 앱**: SDK 3.x는 제공하지 않음(devtools로 대체). **QR(실제 토스 앱)**: 미확인. **토스 iOS / Android**: 미확인(앨범 선택, 권한 거부, 저장 위치, 한글 파일명, 대용량, 제스처 충돌, Safe Area).

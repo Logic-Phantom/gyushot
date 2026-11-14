@@ -4,7 +4,7 @@
 |---|---|---|---|
 | 1 | 콘솔에서 앱 이름 `제출맞춤`·appName `gyushot` 확정 | 사용자 | 미착수 |
 | 2 | KIPRIS·스토어 이름 충돌 확인 | 사용자 | 미착수 |
-| 3 | 샌드박스: 진입·앨범 선택·권한 거부·변환·저장 | 사용자 + Claude | 미착수 |
+| 3 | devtools 모의 SDK: 앨범 선택·변환 / QR(실제 토스 앱): [SANDBOX_TEST.md](SANDBOX_TEST.md) 점검표 | 사용자 + Claude | devtools 일부 완료, QR 미착수 |
 | 4 | 토스 iOS 실기기: 앨범(반환 해상도·EXIF), 저장 위치, 한글/ASCII 파일명, 핀치 제스처, Safe Area | 사용자 | 미착수 |
 | 5 | 토스 Android 실기기: 위와 같음 | 사용자 | 미착수 |
 | 6 | `photos: write` 필요 여부(저장 실패 시) | Claude | 미착수 |

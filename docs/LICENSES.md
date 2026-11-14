@@ -6,6 +6,8 @@
 2026-11-14 결과: 13개 — MIT 11, ISC 1, Apache-2.0 1. GPL/AGPL 없음. 앱의 더보기 → 오픈소스 라이선스에서 표시.
 워크스페이스 자체 코드(`@gyushot/*`)와 빌드 전용 `@apps-in-toss/cli`는 제외.
 
+개발 전용: `@apps-in-toss/devtools` 3.10.0(Apache-2.0) — devDependency, 배포 번들에 포함되지 않음.
+
 이미지 처리 외부 라이브러리는 쓰지 않는다(EXIF·DPI·형식 판별을 직접 구현).
 
 ## 에셋

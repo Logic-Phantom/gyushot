@@ -54,8 +54,11 @@ PDF·OCR·배경 제거·얼굴 보정·AI 합성은 하지 않습니다. 파일
 | 내 프리셋·즐겨찾기·최근 작업 저장 | ✅ | ✅ 9개 | ✅(새로고침 유지) | ⬜ | ⬜ | ⬜ |
 | 360px 가로 스크롤 없음 | ✅ | — | ✅ | ⬜ | ⬜ | ⬜ |
 | `.ait` 빌드 | ✅ | — | — | ⬜ | — | — |
+| devtools 모의 SDK(앨범·변환·진단) | ✅ | — | ✅ | — | — | — |
 
 ✅ 확인됨 · ⬜ 아직 확인 안 함 · — 해당 없음
+
+'샌드박스' 열: SDK 3.x는 샌드박스 앱이 없어 **콘솔 업로드 후 QR 테스트**를 뜻합니다. 로컬 모의 SDK 확인은 devtools 행에 적습니다. 절차: [docs/SANDBOX_TEST.md](docs/SANDBOX_TEST.md)
 
 ## 기술 스택과 구조
 
@@ -107,6 +110,15 @@ npm run build:ait
 
 ## 변경 내역
 
+### 0.1.1 — 2026-11-14 (토스 테스트 준비)
+
+- 공식 문서 확인: **SDK 3.x는 샌드박스 앱이 없고**, `@apps-in-toss/devtools` 모의 SDK(로컬) + 콘솔 업로드 QR(실제 토스 앱)로 테스트
+- `@apps-in-toss/devtools` 추가(개발 서버 전용). devtools가 켜지면 앱이 SDK 경로를 타도록 실행 환경 판별을 `toss / devtools-mock / browser`로 나눔. `AIT_DEVTOOLS=off`로 순수 브라우저 경로 확인
+- 3.x 가이드에 따라 설정에서 `brand` 블록 삭제
+- 더보기 → **진단 정보(테스트용)**: 실행 환경·토스 앱 버전·OS·deploymentId·API 지원·인코딩 지원 + 사진 선택/디코딩/변환/저장 결과 로그(사진 내용 제외), 웹 디버그 툴즈용 `[제출맞춤]` 콘솔 로그
+- 접두 없는 base64 앨범 결과의 형식을 바이트로 판별(모의 SDK가 PNG를 반환해 발견)
+- [docs/SANDBOX_TEST.md](docs/SANDBOX_TEST.md): 업로드 명령, QR 점검표 17항목(iOS·Android)
+
 ### 0.1.0 — 2026-11-14 (최초)
 
 - 저장소 구조 설계: npm workspaces(`packages/image-core`, `app`), CI(typecheck·test·presets·build)
@@ -128,14 +140,15 @@ npm run build:ait
 
 ## 다음 할 일
 
-1. **샌드박스 확인** — 앨범 선택 반환 형식(base64·해상도·EXIF), `File.saveBase64` 저장 위치·권한(`photos: write` 필요 여부)
-2. **실기기 확인** — iOS/Android 핀치 제스처와 WebView 충돌, Safe Area, 대용량 사진 메모리·속도 → 입력 상한(D-009) 조정
-3. **브라우저 E2E 자동화** — Playwright로 홈→변환→결과 흐름, 실제 file input·다운로드 포함
-4. **EXIF Orientation 실사진 회귀 테스트** — 방향 1~8 실제 렌더 결과 비교
-5. **큐넷·주민등록증 공식 규격 확인** 후 활성화/공식 라벨 전환
-6. **앱 아이콘(600×600)·스토어 소개·스크린샷** 제작
-7. HEIC 지원 여부 결정(토스 앨범 API가 JPEG로 변환해 주는지 확인 후)
-8. 접근성 점검(스크린 리더 라벨, 대비)과 홈 텍스트 로고의 체크리스트 적합성 검토
+1. **QR 테스트(사용자)** — 콘솔 등록 → `npm run build:ait` → 업로드 → [SANDBOX_TEST.md](docs/SANDBOX_TEST.md) 점검표. 특히 앨범 반환 형식·EXIF, `File.saveBase64` 저장 위치·권한(`photos: write` 필요 여부)
+2. **devtools 남은 시나리오** — 권한 거부, 모의 저장
+3. **실기기 확인** — iOS/Android 핀치 제스처와 WebView 충돌, Safe Area, 대용량 사진 메모리·속도 → 입력 상한(D-009) 조정
+4. **브라우저 E2E 자동화** — Playwright로 홈→변환→결과 흐름, 실제 file input·다운로드 포함
+5. **EXIF Orientation 실사진 회귀 테스트** — 방향 1~8 실제 렌더 결과 비교
+6. **큐넷·주민등록증 공식 규격 확인** 후 활성화/공식 라벨 전환
+7. **앱 아이콘(600×600)·스토어 소개·스크린샷** 제작
+8. HEIC 지원 여부 결정(토스 앨범 API가 JPEG로 변환해 주는지 확인 후)
+9. 접근성 점검(스크린 리더 라벨, 대비)과 홈 텍스트 로고의 체크리스트 적합성 검토
 
 ## Work Log
 
@@ -143,4 +156,5 @@ npm run build:ait
 |---|---|---|
 | 2026-11-14 | 앱인토스 문서(llms.txt·앨범·파일 저장·Storage)·SDK 3.10.0 타입 확인, 외교부·도로교통공단 규격 페이지 확인 | 문서 반영 |
 | 2026-11-14 | 프로젝트 구조·image-core·앱 화면·문서 작성 | typecheck 통과, 테스트 66/66 통과, presets 8개 통과, build·`.ait` 생성 |
+| 2026-11-14 | 토스 테스트 준비: 3.x 테스트 문서 확인, devtools 연동, 진단 정보, brand 삭제 | devtools에서 앨범→변환 확인, 테스트 66/66, `.ait` 생성, dist에 devtools 없음 |
 | 2026-11-14 | 내장 브라우저(375/360px)에서 전체 흐름 확인 | 결과 파일 413×531·20KB·JPG·300dpi 재확인, 가로 스크롤 없음, 외부 요청 없음 |

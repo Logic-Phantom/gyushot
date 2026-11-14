@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Icon } from '../../components/Icon';
 import { Button, Header, Screen, Segmented, Toggle } from '../../components/ui';
+import { logEvent } from '../../platform/diagnostics';
 import { hasContentRules, isPrint, outputFileName, specOf } from '../../data/catalog';
 import { defaultSettings, useApp, type ExportSettings as Settings } from '../../state/AppState';
 import { extensionOf } from '@gyushot/image-core';
@@ -98,6 +99,9 @@ export function ExportSettings() {
     const wait = 900 - (performance.now() - started);
     if (wait > 0) await new Promise((res) => setTimeout(res, wait));
     setStage(null);
+    logEvent('convert', r.ok
+      ? `${r.inspected.width}×${r.inspected.height} ${r.inspected.format} ${r.inspected.bytes} bytes · 품질 ${r.quality ?? '-'} · ${r.attempts}회 · ${r.elapsedMs}ms · ${r.report.status}`
+      : `실패 ${r.reason}`);
     if (!r.ok) {
       if (r.reason === 'too-large') {
         setError(
